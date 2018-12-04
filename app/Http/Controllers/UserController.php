@@ -71,14 +71,14 @@ class UserController extends BaseController
             ], 412);        
         }
 
-        // Find the user by email
-        $user = User::where('username', $this->request->email)->first();
+        // Find the user by username
+        $user = User::where('username', $this->request->username)->first();
 
         if (!$user) {
             
             return response()->json([
                 'status' => false,
-                'message' => 'Email does not exist',
+                'message' => 'User does not exist',
                 'errors' => ''
             ], 404);
         }
@@ -98,7 +98,7 @@ class UserController extends BaseController
 
         return response()->json([
             'status' => false,
-            'message' => 'Email or password is wrong.',
+            'message' => 'Username or password is wrong.',
             'errors' => ''
         ], 400);
     }
