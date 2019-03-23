@@ -15,6 +15,30 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->get('/app-key', function () use ($router) {
+    
+    $path = base_path('.env');
+
+	if (file_exists($path)) {
+		
+		file_put_contents($path, str_replace(
+	    	'APP_KEY=', 'APP_KEY='.str_random(32), file_get_contents($path)
+		));
+	}
+});
+
+$router->get('/jwt-secret', function () use ($router) {
+    
+    $path = base_path('.env');
+
+	if (file_exists($path)) {
+		
+		file_put_contents($path, str_replace(
+	    	'JWT_SECRET=', 'JWT_SECRET='.str_random(32), file_get_contents($path)
+		));
+	}
+});
+
 $router->post(
     'api/v1.0/auth/login','UserController@authenticate'
 );
